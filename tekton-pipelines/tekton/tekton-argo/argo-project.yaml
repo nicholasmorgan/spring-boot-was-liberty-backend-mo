@@ -1,17 +1,17 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cos-liberty
+  name: spring-boot-liberty
   namespace: argocd
 spec: 
   project: default
   source:
-    repoURL: https://github.com/davemulley/test-gitops
-    path: cos-liberty/dev
+    repoURL: https://github.com/matejocovskyibm/spring-boot-was-liberty-backend-gitops-mo
+    path: dev
     targetRevision: HEAD
     directory:
       recurse: true
       jsonnet: {}
   destination:
     server: https://kubernetes.default.svc
-    namespace: cos-liberty-dev
+    namespace: spring-boot-liberty-dev
