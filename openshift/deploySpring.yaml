@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: liberty-spring-boot-deployment
+  labels:
+    app: liberty-spring-boot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: liberty-spring-boot
+  template:
+    metadata:
+      labels:
+        app: liberty-spring-boot
+    spec:
+      containers:
+      - name: app
+        image: <DOCKER_IMAGE>
+        ports:
+        - containerPort: 9080
+          name: 9080-tcp
+          protocol: TCP
+      imagePullSecrets:
+        - name: mofo-dev-uk-icr-io
+      terminationGracePeriodSeconds: 60
+      dnsPolicy: ClusterFirst
+      serviceAccountName: websphere
+      serviceAccount: websphere
+      securityContext:
+        runAsUser: 1001
+        runAsNonRoot: true
