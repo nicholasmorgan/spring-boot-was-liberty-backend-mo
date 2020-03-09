@@ -28,7 +28,7 @@ spec:
         type: git
   steps:
     - name: build
-      image: $(inputs.params.BUILDER_IMAGE)
+      image: quay.io/buildah/stable:v1.11.0
       volumeMounts:
         - mountPath: /var/lib/containers
           name: varlibcontainers
@@ -40,14 +40,14 @@ spec:
           set -e
           SHORT_GIT_HASH=$(cat .git/FETCH_HEAD | awk '{print substr($1,0,7)}')
           echo "SHORT_GIT_HASH = $SHORT_GIT_HASH"
-          echo Building Image $(outputs.resources.image.url):$SHORT_GIT_HASH
+          echo Building Image docker-registry.default.svc.cluster.local:5000/spring-boot-liberty-tekton/spring-boot-liberty:$SHORT_GIT_HASH
           echo -----------------------------------
           echo Copying git source to /workspace/output/
           cp -R /workspace/source /workspace/output/
           echo -----------------------------------
-          buildah bud --tls-verify=$(inputs.params.TLSVERIFY) --layers -f $(inputs.params.DOCKERFILE) -t $(outputs.resources.image.url):$SHORT_GIT_HASH $(inputs.params.CONTEXT)
-          echo Pushing Image $(outputs.resources.image.url):$SHORT_GIT_HASH
-          buildah push --tls-verify=$(inputs.params.TLSVERIFY) $(outputs.resources.image.url):$SHORT_GIT_HASH docker://$(outputs.resources.image.url):$SHORT_GIT_HASH
+          buildah bud --tls-verify=false --layers -f ./Dockerfile -t docker-registry.default.svc.cluster.local:5000/spring-boot-liberty-tekton/spring-boot-liberty:$SHORT_GIT_HASH .
+          echo Pushing Image docker-registry.default.svc.cluster.local:5000/spring-boot-liberty-tekton/spring-boot-liberty:$SHORT_GIT_HASH
+          buildah push --tls-verify=false docker-registry.default.svc.cluster.local:5000/spring-boot-liberty-tekton/spring-boot-liberty:$SHORT_GIT_HASH docker://docker-registry.default.svc.cluster.local:5000/spring-boot-liberty-tekton/spring-boot-liberty:$SHORT_GIT_HASH
       securityContext:
         privileged: true
   volumes:
