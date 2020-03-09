@@ -21,8 +21,6 @@ spec:
         - containerPort: 9080
           name: 9080-tcp
           protocol: TCP
-      imagePullSecrets:
-        - name: mofo-dev-uk-icr-io
       terminationGracePeriodSeconds: 60
       dnsPolicy: ClusterFirst
       serviceAccountName: websphere

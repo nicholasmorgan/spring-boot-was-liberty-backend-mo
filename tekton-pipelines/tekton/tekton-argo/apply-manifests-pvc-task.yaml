@@ -24,12 +24,12 @@ spec:
         - |-
           set -e
           SHORT_GIT_HASH=$(cat .git/FETCH_HEAD | awk '{print substr($1,0,7)}')
-          NEW_IMAGE=$(inputs.resources.image.url):$SHORT_GIT_HASH
+          NEW_IMAGE=docker-registry.default.svc.cluster.local:5000/spring-boot-liberty-tekton/spring-boot-liberty:$SHORT_GIT_HASH
           echo Setting image to $NEW_IMAGE
           echo -----------------------------------
-          echo Updaing manifests in $(inputs.params.manifest_dir) directory
-          sed -i "s|<DOCKER_IMAGE>|${NEW_IMAGE}|g" ./$(inputs.params.manifest_dir)/deploySpring.yaml
+          echo Updaing manifests in openshift directory
+          sed -i "s|<DOCKER_IMAGE>|${NEW_IMAGE}|g" ./openshift/deploySpring.yaml
           echo -----------------------------------
-          echo Applying manifests in $(inputs.params.manifest_dir) directory
-          oc apply -f $(inputs.params.manifest_dir)
+          echo Applying manifests in openshift directory
+          oc apply -f openshift
           echo -----------------------------------
