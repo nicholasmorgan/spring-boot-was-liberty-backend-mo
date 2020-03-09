@@ -18,6 +18,6 @@ items:
     - name: revision
       value: master
     - name: url
-      value: http://github.ibm.com/cpat/spring-boot-was-liberty-backend-mo
+      value: http://github.com/matejocovskyibm/spring-boot-was-liberty-backend-mo
     type: git
 kind: List

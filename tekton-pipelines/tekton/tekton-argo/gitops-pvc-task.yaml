@@ -7,7 +7,7 @@ spec:
     params:
       - name: GITOPS_REPO
         description: The location of the repo to be updated
-        default: https://github.ibm.com/cpat/spring-boot-was-liberty-backend-gitops-mo.git
+        default: https://github.com/matejocovskyibm/spring-boot-was-liberty-backend-gitops-mo.git
     resources:
       - type: image
         name: image
