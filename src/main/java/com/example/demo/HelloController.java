@@ -11,4 +11,14 @@ public class HelloController {
 		return "Greetings from Spring Boot!!!?";
 	}
 
+	@RequestMapping("/mo")
+	public String mo() {
+		return "Matej Ocovsky";
+	}
+
+	@RequestMapping("/ls")
+	public String ls() {
+		return "Lewis Smith";
+	}
+
 }
