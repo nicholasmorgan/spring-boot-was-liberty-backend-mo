@@ -30,3 +30,6 @@ build/
 ### VS Code ###
 .vscode/
 tekton-pipelines/github-secret/github-secret.yaml
+
+### misc ###
+.DS_Store
