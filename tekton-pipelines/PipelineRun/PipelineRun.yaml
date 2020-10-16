@@ -13,7 +13,7 @@ spec:
     - name: path-to-deployment-template
       value: templates/deploySpring.template
   pipelineRef:
-    name: build-gitops-pvc-pipeline
+    name: build-gitops-pipeline
   workspaces:
     - name: git-source
       persistentVolumeClaim:

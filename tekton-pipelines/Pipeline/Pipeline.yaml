@@ -35,7 +35,7 @@ spec:
       workspaces:
         - name: output
           workspace: git-source
-    - name: build
+    - name: build-push
       params:
         - name: docker-image
           value: $(params.docker-image)
@@ -43,7 +43,7 @@ spec:
         - git-clone
       taskRef:
         kind: Task
-        name: buildah-pvc-task
+        name: build-push
       workspaces:
         - name: output
           workspace: git-source
@@ -59,7 +59,7 @@ spec:
         - build
       taskRef:
         kind: Task
-        name: gitops-pvc-task
+        name: gitops
       workspaces:
         - name: output
           workspace: git-source
