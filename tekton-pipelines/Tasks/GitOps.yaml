@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: gitops
+spec:
+  params:
+    - name: docker-image
+      type: string
+    - name: path-to-deployment-template
+      type: string
+    - name: path-to-deployment
+      type: string
+  steps:
+    - args:
+        - >-
+          set -e
+
+          NEW_IMAGE=$(params.docker-image)
+
+          echo Setting image to $NEW_IMAGE
+
+          git checkout master
+
+          git config --global user.email "tekton@ibmcloud.com"
+
+          git config --global user.name "Tekton Pipeline"
+
+          cp ./$(params.path-to-deployment-template)
+          ./$(params.path-to-deployment)
+
+          sed -i "s|<DOCKER_IMAGE>|${NEW_IMAGE}|g"
+          ./$(params.path-to-deployment)
+
+          git add .
+
+          git commit -m "Updating image name" --allow-empty
+
+          git push
+      command:
+        - /bin/bash
+        - "-c"
+      image: docker.io/csantanapr/helm-kubectl-curl-git-jq-yq
+      name: gitops-step
+      resources: {}
+      workingDir: $(workspaces.output.path)
+  workspaces:
+    - name: output
