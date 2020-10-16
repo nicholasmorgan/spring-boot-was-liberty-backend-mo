@@ -1,0 +1,22 @@
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  generateName: pipeline-
+spec:
+  params:
+    - name: url
+      value: git@github.com:nicholasmorgan/spring-boot-was-liberty-backend-mo.git
+    - name: docker-image
+      value: image-registry.openshift-image-registry.svc:5000/dev-nm/spring-was-lib:latest
+    - name: path-to-deployment
+      value: openshift/deploySpring.yaml
+    - name: path-to-deployment-template
+      value: templates/deploySpring.template
+  pipelineRef:
+    name: build-gitops-pvc-pipeline
+  workspaces:
+    - name: git-source
+      persistentVolumeClaim:
+        claimName: tekton-pvc-1gib
+  serviceAccountName: pipeline
+  timeout: 1h0m0s

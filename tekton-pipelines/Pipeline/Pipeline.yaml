@@ -1,8 +1,6 @@
 apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
-  creationTimestamp: "2020-10-15T12:49:04Z"
-  generation: 28
   name: build-gitops-pipeline
 spec:
   params:
