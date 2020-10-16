@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: app
-          image: image-registry.openshift-image-registry.svc:5000/dev-nm/spring-was-lib:123
+          image: image-registry.openshift-image-registry.svc:5000/dev-nm/spring-was-lib:latest
           ports:
             - containerPort: 9080
